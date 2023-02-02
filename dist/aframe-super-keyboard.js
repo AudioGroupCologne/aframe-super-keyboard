@@ -379,6 +379,7 @@ AFRAME.registerComponent('super-keyboard', {
     if (this.hand && this.hand.ownRaycaster) {
       this.hand.removeAttribute('raycaster');
     }
+    
     if (this.data.hand) {
       this.hand = this.data.hand;
     } else {
@@ -393,11 +394,14 @@ AFRAME.registerComponent('super-keyboard', {
         '[hand-controls]',
         '[daydream-controls] [cursor] > [raycaster]'
       ].join(','));
-    }
-
+    } 
+    
+    
+    
     if (!this.hand) {
       console.error('super-keyboard: no controller found. Add <a-entity> with controller or specify with super-keyboard="hand: #selectorToController".');
     } else {
+      
       if (!this.hand.hasLoaded) {
         this.hand.addEventListener('loaded', this.setupHand.bind(this));
         return;
@@ -412,7 +416,7 @@ AFRAME.registerComponent('super-keyboard', {
         if (this.data.injectToRaycasterObjects) {
           params.objects = '.keyboardRaycastable';
         }
-        this.hand.setAttribute('raycaster', params);
+         this.hand.setAttribute('raycaster', params);
       } else {
         this.hand.ownRaycaster = false;
         if (this.data.injectToRaycasterObjects) {
@@ -421,12 +425,13 @@ AFRAME.registerComponent('super-keyboard', {
             objs.push('.keyboardRaycastable');
           }
           params.objects = objs.join(',').replace(/^,/, '');
-          this.hand.setAttribute('raycaster', params);
+          // this.hand.setAttribute('raycaster', params);
         }
       }
 
       this.raycaster = this.hand.components.raycaster;
     }
+    
   },
 
   filter: function (str) {
@@ -488,9 +493,7 @@ AFRAME.registerComponent('super-keyboard', {
       }
       case 'Shift': {
         this.shift = !this.shift;
-        this.keyHover.el.setAttribute('material', 'color',
-          this.shift ? this.data.keyHoverColor : this.data.keyBgColor
-        );
+        //this.keyHover.el.setAttribute('material', 'color',this.shift ? this.data.keyHoverColor : this.data.keyBgColor);
         break;
       }
       case 'Escape': {
